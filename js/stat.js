@@ -5,12 +5,10 @@ var CLOUD_HEIGHT = 270;
 var CLOUD_X = 100;
 var CLOUD_Y = 10;
 var GAP = 10;
-var FONT_GAP = 16;
-var TEXT_WIDTH = 50;
-var BAR_HEIGHT = 20;
-var barWidth = CLOUD_WIDTH - GAP - TEXT_WIDTH - GAP;
+var FONT_GAP = 14;
 
-var messages = ['Ура вы победили!', 'Список результатов: ', 'Java is AWSOME'];
+
+var messages = ['Ура вы победили!', 'Список результатов: '];
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -35,19 +33,38 @@ var drawText = function (ctx, message, x, y, font, color) {
   ctx.fillText(message, x, y);
 };
 
+var drawGists = function (ctx, names, times) {
+  var GIST_HEIGHT = 150;
+  var COLUMN_WIDTH = 40;
+  var COLUMN_MARGIN = 50;
+  var GIST_Y = CLOUD_Y + GAP + FONT_GAP + GAP * messages.length;
+  var COLUMN_COLOR = 'rgba(255, 0, 0, 1)';
+  var maxTime = getMaxElement(times);
+  for (var i = 0; i < names.length; i++) {
+
+    if (names[i] === 'Вы') { // Делаем рандомную насыщенность
+      ctx.fillStyle = COLUMN_COLOR;
+    } else {
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random().toFixed(2) + ')';
+    }
+    var drawGist = function (ctx, x, y, color) { // Функция для отрисовки графиков
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, COLUMN_WIDTH, gistHeightStep);
+    };
+    var gistHeightStep = (-GIST_HEIGHT * times[i]) / maxTime;
+    drawGist(ctx, CLOUD_X + COLUMN_MARGIN + (COLUMN_MARGIN + COLUMN_WIDTH) * i, GIST_Y + FONT_GAP + FONT_GAP + GIST_HEIGHT);
+    drawText(ctx, names[i], CLOUD_X + COLUMN_MARGIN + (COLUMN_MARGIN + COLUMN_WIDTH) * i, GIST_Y + COLUMN_MARGIN + GIST_HEIGHT);
+    drawText(ctx, Math.round(times[i]), CLOUD_X + COLUMN_MARGIN + (COLUMN_MARGIN + COLUMN_WIDTH) * i, GIST_Y + FONT_GAP);
+  }
+};
+
+
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   for (var j = 0; j < messages.length; j++) {
-    drawText(ctx, messages[j], CLOUD_X + GAP, CLOUD_Y + GAP + FONT_GAP + GAP * j);
+    drawText(ctx, messages[j], CLOUD_X + GAP, CLOUD_Y + GAP + GAP + (FONT_GAP) * j);
   }
-  // ctx.fillStyle = '#000';
-
-  // var maxTime = getMaxElement(times);
-
-  // for (var i = 0; i < names.length; i++) {
-  //   ctx.fillText(names[i], CLOUD_X + GAP, CLOUD_Y + GAP + FONT_GAP + (GAP + BAR_HEIGHT) * i);
-  //   ctx.fillRect(CLOUD_X + GAP + TEXT_WIDTH, CLOUD_Y + GAP + (BAR_HEIGHT + GAP) * i, (barWidth * times[i]) / maxTime, BAR_HEIGHT, BAR_HEIGHT);
-  // }
+  drawGists(ctx, names, times);
 };
