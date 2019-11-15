@@ -1,0 +1,26 @@
+{
+  "name": "codemagic",
+  "version": "1.0.0",
+  "description": "Project for training js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OlegMikhailov23/codemagic.git"
+  },
+  "author": "Oleg Mikhailov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OlegMikhailov23/codemagic/issues"
+  },
+  "homepage": "https://github.com/OlegMikhailov23/codemagic#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-htmlacademy": "^0.5.2"
+  },
+  "dependencies": {
+    "node": "^13.1.0"
+  }
+}
