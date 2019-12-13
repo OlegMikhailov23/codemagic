@@ -1,8 +1,12 @@
 'use strict';
 
+var ESC_KEYCODE = 27;
+
+var ENTER_KEYCODE = 13;
+
 var playersNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 
-var playersSurname = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var playersSurnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 
 var coatColorsList = ['rgb(101, 137, 164)', ' rgb(241, 43, 107) ', 'rgb(146, 100, 161)', 'rgb(56, 159, 117) ', ' rgb(215, 210, 55) ', 'rgb(0, 0, 0)'];
 
@@ -67,17 +71,13 @@ var renderWizards = function (arrKeys, arrData, names, surnames) {
   pushItemInDoc(wizardNumber);
 };
 
-renderWizards(wizardKeys, wizardData, playersNames, playersSurname);
+renderWizards(wizardKeys, wizardData, playersNames, playersSurnames);
 
 // Создаем сценарий взаимодействий пользователя со страницей
 //
 // 1) Нажатие на элемент .setup-open удаляет у блока '.setup' класс 'hidden';
 // 2) Нажатие на элемент .setup-close добавляет блоку '.setup' класс 'hidden';
 // 3) При нажатии на мантию .wizard-coat мантия рандомно меняет цвет;
-
-var ESC_KEYCODE = 27;
-
-var ENTER_KEYCODE = 13;
 
 var setup = document.querySelector('.setup');
 
@@ -91,16 +91,31 @@ var wizardEye = setup.querySelector('.wizard-eyes');
 
 var wizardBall = setup.querySelector('.setup-fireball-wrap');
 
-var cheangeCoat = function () {
+// Функция для преобразования RGB в HEX
+
+var rgbToHex = function (rgb) {
+  rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+
+  return (rgb && rgb.length === 4) ? '#' +
+    ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+    ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+    ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
+};
+
+var onCoatClick = function () {
   wizardCoat.style.fill = coatColorsList[Math.floor(Math.random() * coatColorsList.length)];
+  setup.querySelector('input[name = coat-color]').value = wizardCoat.style.fill;
 };
 
-var cheangeEye = function () {
+var onEyeClick = function () {
   wizardEye.style.fill = eyesColorslist[Math.floor(Math.random() * eyesColorslist.length)];
+  setup.querySelector('input[name = eyes-color]').value = wizardEye.style.fill;
 };
 
-var cheangeFireball = function () {
+var onFireballClick = function () {
   wizardBall.style.backgroundColor = wiazardBallColorList[Math.floor(Math.random() * wiazardBallColorList.length)];
+  // Чтобы в атрибут value приходил цвет в формате HEX, этого требует сервер.
+  setup.querySelector('input[name = fireball-color]').value = rgbToHex(wizardBall.style.backgroundColor);
 };
 
 var onPopupEscpress = function (evt) {
@@ -139,17 +154,8 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-wizardCoat.addEventListener('click', function () {
-  cheangeCoat();
-  setup.querySelector('input[name = coat-color]').value = wizardCoat.style.fill;
-});
+wizardCoat.addEventListener('click', onCoatClick);
 
-wizardEye.addEventListener('click', function () {
-  cheangeEye();
-  setup.querySelector('input[name = eyes-color]').value = wizardEye.style.fill;
-});
+wizardEye.addEventListener('click', onEyeClick);
 
-wizardBall.addEventListener('click', function () {
-  cheangeFireball();
-  setup.querySelector('input[name = fireball-color]').value = wizardBall.style.backgroundColor;
-});
+wizardBall.addEventListener('click', onFireballClick);
