@@ -30,7 +30,7 @@ var similarListElement = document.querySelector('.setup-similar-list');
 
 var similarBlock = document.querySelector('.setup-similar');
 
-var defaultCoords;
+// var defaultCoords = getDialogDefaultCoords(setup);
 
 // Создаем рандомный массив полных имен магов
 var getFullName = function (names, surnames) {
@@ -129,7 +129,6 @@ var onPopupEscpress = function (evt) {
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscpress);
-  getDialogDefaultCoords(setup);
 };
 
 var closePopup = function () {
@@ -147,6 +146,8 @@ var getDialogDefaultCoords = function (el) {
   };
   return defaultCoords;
 };
+
+var defaultCoords = getDialogDefaultCoords(setup);
 
 setupOpen.addEventListener('click', function () {
   openPopup();
