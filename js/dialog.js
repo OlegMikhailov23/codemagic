@@ -44,7 +44,7 @@
     window.keyboardUtils.isEnterEvent(evt, closePopup);
   });
 
-  window.colorize(wizardCoat, window.wizardData.coatColorsList);
-  window.colorize(wizardEye, window.wizardData.eyesColorslist);
-  window.colorize(wizardBall, window.wizardData.wiazardBallColorList);
+  window.colorize(wizardCoat, window.wizardData.coatColorsList, setup.querySelector('input[name = coat-color]'));
+  window.colorize(wizardEye, window.wizardData.eyesColorslist, setup.querySelector('input[name = eyes-color]'));
+  window.colorize(wizardBall, window.wizardData.wiazardBallColorList, setup.querySelector('input[name = fireball-color]'));
 })();

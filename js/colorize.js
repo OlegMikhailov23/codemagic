@@ -14,15 +14,15 @@
       ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
   };
 
-  window.colorize = function (el, colors) {
+  window.colorize = function (el, colors, input) {
     el.addEventListener('click', function () {
       var color = getRandomColor(colors);
       if (el.tagName.toLowerCase() === 'div') {
         el.style.backgroundColor = color;
-        el.value = rgbToHex(color);
+        input.value = rgbToHex(el.style.backgroundColor);
       } else {
         el.style.fill = color;
-        el.value = color;
+        input.value = color;
       }
     });
   };
