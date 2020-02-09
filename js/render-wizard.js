@@ -8,6 +8,8 @@
 
   var similarBlock = document.querySelector('.setup-similar');
 
+  var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
+
   // var playersList = window.generateData;
 
   var renderWizard = function (wizard) {
@@ -26,7 +28,7 @@
     similarBlock.classList.remove('hidden');
   };
 
-  window.backend.load(successHandler, window.backend.errorHandler);
+  window.backend.load(successHandler, window.backend.errorHandler, URL_LOAD);
   // var pushItemInDoc = function (plyersNumber) {
   //   for (var i = 0; i < plyersNumber; i++) {
   //     var wizardElement = similarWizardTemplate.cloneNode(true);

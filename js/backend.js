@@ -1,19 +1,13 @@
 'use strict';
 (function () {
-  var URL = 'https://js.dump.academy/code-and-magick/data';
-
-  var URL_SAVE = 'https://js.dump.academy/code-and-magick';
-
-  window.backend = {
-    load: function (onLoad, onError) {
+  var makeXhr = function (onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      xhr.open('GET', URL);
       xhr.addEventListener('load', function () {
         if (xhr.status === 200) {
           onLoad(xhr.response);
         } else {
-          onError('Статус ответа' + xhr.status + ' ' + xhr.statusText);
+          onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
         }
       });
       xhr.addEventListener('error', function () {
@@ -22,28 +16,19 @@
       xhr.addEventListener('timeout', function () {
         onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
       });
-
+      return xhr;
+    };
+  window.backend = {
+    load: function (onLoad, onError, url) {
+      var xhr = makeXhr(onLoad, onError);
+      xhr.open('GET', url);
       xhr.timeout = 10000;
       xhr.send();
     },
 
-    save: function (data, onLoad, onError) {
-      var xhr = new XMLHttpRequest();
-      xhr.responseType = 'json';
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
-          onLoad(xhr.response);
-        } else {
-          onError('Статус отправки ' + xhr.status + ' ' + xhr.statusText);
-        }
-      });
-      xhr.addEventListener('error', function () {
-        onError('Произошла ошибка соединения!');
-      });
-      xhr.addEventListener('timeout', function () {
-        onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-      });
-      xhr.open('POST', URL_SAVE);
+    save: function (data, onLoad, onError, url) {
+      var xhr = makeXhr(onLoad, onError);
+      xhr.open('POST', url);
       xhr.send(data);
     },
 
