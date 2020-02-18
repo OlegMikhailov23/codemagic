@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+
   var getRandomColor = function (colors) {
     return colors[Math.floor(colors.length * Math.random())];
   };
@@ -14,7 +15,7 @@
       ('0' + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
   };
 
-  window.colorize = function (el, colors, input) {
+  window.colorize = function (el, colors, input, cb1, cb2) {
     el.addEventListener('click', function () {
       var color = getRandomColor(colors);
       if (el.tagName.toLowerCase() === 'div') {
@@ -24,6 +25,8 @@
         el.style.fill = color;
         input.value = color;
       }
+      cb1(color);
+      cb2();
     });
   };
 })();
