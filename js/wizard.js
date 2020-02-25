@@ -16,7 +16,7 @@
 
   var wizards = [];
 
-  var saveCoatolor = function (color) {
+  var saveCoatColor = function (color) {
     coatColor = color;
   };
 
@@ -64,7 +64,7 @@
     }));
   };
 
-  window.colorize(wizardCoat, window.wizardData.coatColorsList, document.querySelector('input[name = coat-color]'), saveCoatolor, window.debounce(upDateWizards));
+  window.colorize(wizardCoat, window.wizardData.coatColorsList, document.querySelector('input[name = coat-color]'), saveCoatColor, window.debounce(upDateWizards));
   window.colorize(wizardEye, window.wizardData.eyesColorslist, document.querySelector('input[name = eyes-color]'), saveEyesColor, window.debounce(upDateWizards));
   window.colorize(wizardBall, window.wizardData.wiazardBallColorList, document.querySelector('input[name = fireball-color]'), saveFireballColor, window.debounce(upDateWizards));
 
