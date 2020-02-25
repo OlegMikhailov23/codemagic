@@ -6,6 +6,19 @@
 
   var setupClose = setup.querySelector('.setup-close');
 
+  var dialogHandler = document.querySelector('.upload');
+
+  var getDialogDefaultCoords = function (el) {
+    var computedStyle = getComputedStyle(el);
+    var defaultCoords = {
+      x: computedStyle.left,
+      y: computedStyle.top
+    };
+    return defaultCoords;
+  };
+
+  var defaultCoords = getDialogDefaultCoords(setup);
+
   var openPopup = function () {
     setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscpress);
@@ -14,8 +27,8 @@
   var closePopup = function () {
     setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscpress);
-    setup.style.left = window.defaultCoords.x;
-    setup.style.top = window.defaultCoords.y;
+    setup.style.left = defaultCoords.x;
+    setup.style.top = defaultCoords.y;
   };
 
   var onPopupEscpress = function (evt) {
@@ -36,5 +49,9 @@
 
   setupClose.addEventListener('keydown', function (evt) {
     window.keyboardUtils.isEnterEvent(evt, closePopup);
+  });
+
+  dialogHandler.addEventListener('mousedown', function (evt) {
+    window.dragAndDrop(evt, dialogHandler, setup);
   });
 })();
