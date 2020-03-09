@@ -21,6 +21,7 @@
     var startCoords = new Coordinate();
     startCoords.setX(evt.clientX);
     startCoords.setY(evt.clientY);
+    console.log(startCoords);
 
     var dragged = false;
 
@@ -30,14 +31,14 @@
       dragged = true;
 
       var shift = new Coordinate();
-      shift.setX(startCoords.x - moveEvt.clientX);
-      shift.setY(startCoords.y - moveEvt.clientY);
+      shift.setX(startCoords._x - moveEvt.clientX);
+      shift.setY(startCoords._y - moveEvt.clientY);
 
       startCoords.setX(moveEvt.clientX);
       startCoords.setY(moveEvt.clientY);
 
-      draggableEl.style.top = (draggableEl.offsetTop - shift.y) + 'px';
-      draggableEl.style.left = (draggableEl.offsetLeft - shift.x) + 'px';
+      draggableEl.style.top = (draggableEl.offsetTop - shift._y) + 'px';
+      draggableEl.style.left = (draggableEl.offsetLeft - shift._x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
