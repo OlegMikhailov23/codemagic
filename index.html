@@ -63,7 +63,7 @@
   <div class="demo"></div>
 
   <div class="setup-open">
-    <img src="./img/user-1.jpg" class="setup-open-icon">
+    <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="0">
   </div>
 </header>
 
@@ -71,7 +71,8 @@
   <form class="setup-wizard-form"
         method="post"
         enctype="multipart/form-data"
-        autocomplete="off">
+        autocomplete="off"
+        >
 
     <div class="setup-title">
       <div class="setup-user">
@@ -80,13 +81,12 @@
           <input type="file" name="avatar">
         </div>
         <label>
-          <input type="text" name="username"
-                 maxlength="25" required
-                 class="setup-user-name" value="Синий Пендальф"/>
+          <input type="text" name="username" required
+                 class="setup-user-name" value="Синий Пендальф" minlength="2" maxlength="25"/>
         </label>
       </div>
 
-      <span class="setup-close">&times;</span>
+      <span class="setup-close" tabindex="0">&times;</span>
     </div>
 
 
@@ -155,7 +155,7 @@
         <div class="setup-similar-list"><!--Список похожих персонажей--></div>
       </div>
 
-      <button class="button setup-submit">Сохранить</button>
+      <button type="submit" class="button setup-submit" tabindex="0">Сохранить</button>
     </div>
   </form>
 </div>
@@ -200,12 +200,20 @@
   var getWizardY = function (height) {
     return height / 3 - getWizardHeight(wizardWidth);
   }
-
-
-
 </script>
+<script src="js/backend.js"></script>
+<script src="js/drag-n-drop.js"></script>
+<script src="js/debounce.js"></script>
+<script src="js/wizard-data.js"></script>
+<script src="js/colorize.js"></script>
+<script src="js/wizard.js"></script>
+<script src="js/render.js"></script>
+<script src="js/keyboard-utils.js"></script>
 <script src="js/stat.js"></script>
 <script src="js/game.js"></script>
-
+<!-- <script src="js/generate-data.js"></script> -->
+<script src="js/dialog.js"></script>
+<script src="js/send-form.js"></script>
+<script src="js/avatar.js"></script>
 </body>
 </html>
