@@ -73,7 +73,7 @@
     upDateWizards();
   };
 
-  var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
+  var URL_LOAD = 'http://dkfolkiy.beget.tech/magick/data.json';
 
   window.backend.load(successHandler, window.backend.errorHandler, URL_LOAD);
 
